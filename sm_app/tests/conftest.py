@@ -19,7 +19,9 @@ def demo_user():
     user = User.objects.create(
         first_name="demo",
         last_name="user",
+        username = "demo_user_1",
         email="demo@mail.com",
+        password="strongpassword12"
     )
 
     user.save()
