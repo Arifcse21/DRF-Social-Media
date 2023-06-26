@@ -1,20 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.conf import settings
 from uuid import uuid4
 
 
-def maintain_serial():
-    last_entry = User.objects.all().order_by('id').last()
-    if last_entry:
-        return last_entry.id + 1
-    return 1
-
-
 class User(AbstractUser):
-    id = models.AutoField(default=maintain_serial)
-    uuid = models.UUIDField(default=uuid4(), null=True, blank=True)
-    connections = models.ManyToManyField(get_user_model(), null=True, blank=True)
+    uuid = models.UUIDField(default=uuid4(), null=True, blank=True, editable=False)
+    connections = models.ManyToManyField('sm_app.User', related_name='connected_users')
     
 
     def __repr__(self) -> str:
