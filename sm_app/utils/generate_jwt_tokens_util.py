@@ -10,7 +10,7 @@ class GenerateJWTokensUtil:
     def access_token_generator(data):
 
         access_token_payload = {
-            "user_uuid": data['user_uuid'],
+            "user_uuid": data,   # ['user_uuid'],
             # "user_type": data['user_type'],
             "exp": datetime.datetime.utcnow() + datetime.timedelta(days=5, minutes=10),
             "iat": datetime.datetime.utcnow()
@@ -28,7 +28,7 @@ class GenerateJWTokensUtil:
     def refresh_token_generator(data):
 
         payload = {
-            "user_uuid": data["user_uuid"],
+            "user_uuid": data,      # ["user_uuid"],
             # "user_type": data["user_type"],
             "iat": datetime.datetime.utcnow(),
             "nbf": datetime.datetime.utcnow() + datetime.timedelta(minutes=5),
@@ -37,7 +37,7 @@ class GenerateJWTokensUtil:
 
         refresh_token = jwt.encode(
             payload,
-            settings.REFRESH_TOKEN_SECRET,
+            settings.SECRET_KEY,
             algorithm="HS256"
 
         )

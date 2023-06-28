@@ -12,6 +12,6 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return f"{self.user.get_username()!r}"
     

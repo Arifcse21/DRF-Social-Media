@@ -6,7 +6,7 @@ from uuid import uuid4
 
 
 class User(AbstractUser):
-    uuid = models.UUIDField(default=uuid4(), null=True, blank=True, editable=False)
+    uuid = models.CharField(max_length=40, null=True, blank=True, editable=False)
     connections = models.ManyToManyField('sm_app.User', related_name='connected_users')
     
 
