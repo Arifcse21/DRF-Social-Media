@@ -13,7 +13,7 @@ class RegisterUserView(ViewSet):
     @swagger_auto_schema(
         request_body=UserSerializer,
         operation_summary="Register new user",
-        operation_description="This api creates a registers new user and return access jw token"
+        operation_description="This api registers new user and return access jw token"
     )
 
     def create(self, request):
