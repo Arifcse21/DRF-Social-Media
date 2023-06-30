@@ -29,9 +29,9 @@ class LoginSerializer(serializers.Serializer):
         password = attrs.get('password')
 
         if username and password:
-            user = authenticate(username, password)
+            user = authenticate(self, username=username, password=password)
 
-            if not user and not user.is_active:
+            if not user: # and not user.is_active:
                 msg = "Access Denied: Wrong username and password"
                 raise serializers.ValidationError(msg, code="authorization")
             
