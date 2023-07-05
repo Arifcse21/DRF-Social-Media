@@ -1,0 +1,1 @@
+from .check_jwt_header_decorator import JWTRequired

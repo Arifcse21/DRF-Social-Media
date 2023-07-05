@@ -6,16 +6,17 @@ from drf_yasg.utils import swagger_auto_schema
 from sm_app.models import Profile
 from django.contrib.auth import get_user_model
 from sm_app.utils import (SafeJWTAuthentication, decode_uuid_from_jwt)
+from sm_app.decorators import JWTRequired
 
 
 class UpdateProfileView(ViewSet):
     authentication_classes = [SafeJWTAuthentication, ]
 
-
+    @JWTRequired
     @swagger_auto_schema(
         request_body=ProfileSerializer,
-        operation_summary="Register new user",
-        operation_description="This api registers new user and return access jw token"
+        operation_summary="Update user profile",
+        operation_description="This api update existing user profile"
     )
     def create(self, request):
         uuid = decode_uuid_from_jwt(request.headers["Authorization"])
