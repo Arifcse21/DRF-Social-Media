@@ -33,16 +33,16 @@ class RegisterUserView(ViewSet):
         access_token = GenerateJWTokensUtil.access_token_generator(user_uuid)
         refresh_token = GenerateJWTokensUtil.refresh_token_generator(user_uuid)
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-            api_response = {
-                "status": "successful",
-                "message": "New user registered",
-                "user": serializer.data,
-                "access_token": str(access_token),
-            }
+        api_response = {
+            "status": "successful",
+            "message": "New user registered",
+            "user": serializer.data,
+            "access_token": str(access_token),
+        }
 
-            return Response(api_response, status=status.HTTP_201_CREATED)
+        return Response(api_response, status=status.HTTP_201_CREATED)
         
 

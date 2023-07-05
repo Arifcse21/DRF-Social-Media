@@ -1,4 +1,5 @@
 from .base64_field_util import Base64Field
 from .generate_jwt_tokens_util import GenerateJWTokensUtil
 from .jwt_authentication_util import SafeJWTAuthentication
+from .decode_jwt_util import decode_uuid_from_jwt
 

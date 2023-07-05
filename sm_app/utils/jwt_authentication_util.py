@@ -20,13 +20,13 @@ class SafeJWTAuthentication(BaseAuthentication):
 
     def authenticate(self, request):
 
-        authorization_heaader = request.headers.get('Authorization')
+        authorization_header = request.headers.get('Authorization')
 
-        if not authorization_heaader:
-            return None
+        # if not authorization_header:
+        #     return None
         try:
             # header = 'Token xxxxxxxxxxxxxxxxxxxxxxxx'
-            access_token = authorization_heaader.split('Token ')[1]
+            access_token = authorization_header.split('Token ')[1]
             payload = jwt.decode(
                 access_token, settings.SECRET_KEY, algorithms=['HS256'])
 
