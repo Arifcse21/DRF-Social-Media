@@ -44,13 +44,3 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
-class SerializeUser(serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = [
-            "username",
-            "first_name",
-            "last_name",
-            "email"
-        ]
