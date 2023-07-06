@@ -8,7 +8,7 @@ class Profile(models.Model):
     pfp = Base64Field()     # take image as base64 string
     bio = models.TextField(max_length=2000, null=True, blank=True)
     sm_links = models.TextField(max_length=2000, null=True, blank=True)
-    connections = models.ManyToManyField('sm_app.User', related_name='connected_users')
+    following = models.ManyToManyField('sm_app.User', related_name='connected_users')
     
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified_at = models.DateTimeField(auto_now=True, blank=True, null=True)
