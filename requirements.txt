@@ -25,3 +25,4 @@ swagger-spec-validator==3.0.3
 typing_extensions==4.6.3
 uritemplate==4.1.1
 urllib3==2.0.3
+faker

@@ -1,6 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 from sm_app.models import User
+from faker import Faker
 
 
 @pytest.fixture(scope='session')
@@ -27,3 +28,19 @@ def demo_user():
     user.save()
 
     return user
+
+@pytest.fixture
+def demo_post(demo_user):
+    faker = Faker()
+
+    post = Post(
+        user=demo_user,
+        content=faker.text(),
+        upvote=10,
+        downvote=3,
+
+    )
+
+    post.save()
+
+    return post 
