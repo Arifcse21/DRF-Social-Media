@@ -21,5 +21,6 @@ custom_router.register("connection", UserFollowingView, basename="connection")
 # .|^ endpoint will be "api/v1/connection/{user_pk}/(un)follow/"
 
 urlpatterns = [
-    path("api/v1/", include(router.urls)),    
+    path("api/v1/", include(router.urls)),
+    path("api/v1/", include(custom_router.urls)),
 ]

@@ -14,7 +14,7 @@ class UserFollowingView(ViewSet):
     authentication_classes = [SafeJWTAuthentication, ]
     queryset = User.objects.all()
     
-    @action(detail=True, method="post") 
+    # @action(detail=True, method="post")
     # @JWTRequired
     @swagger_auto_schema(
         operation_summary="Follow a user",
@@ -43,35 +43,27 @@ class UserFollowingView(ViewSet):
             # to_follow = get_object_or_404(User, pk=pk)
 
             if pk in followings_ids:
-                api_response = {}
-                api_response["status"] = "error"
-                api_response["message"] = "you are already following this user"
+                api_response = {"status": "error", "message": "you are already following this user"}
 
                 return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
             
             profile.following.add(pk)       # it takes both ids(*ids) and objects(*users)
             
-            api_response = {}
-            api_response["status"] = "successful"
-            api_response["message"] = "you start following this user now"
-            api_response["following"] = FollowingSerializer(profile).data
+            api_response = {"status": "successful", "message": "you start following this user now",
+                            "following": FollowingSerializer(profile).data}
 
             return Response(api_response, status=status.HTTP_200_OK)
 
-
         except Exception as e:
-            api_response = {}
-            api_response["status"] = "failed"
-            api_response["message"] = str(e)
-            
-            return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
-        
+            api_response = {"status": "failed", "message": str(e)}
 
-    @action(detail=True, method="post") 
+            return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
+
+    # @action(detail=True, method="post")
     # @JWTRequired
     @swagger_auto_schema(
-        operation_summary="Follow a user",
-        operation_description="This api let a user follow another user",
+        operation_summary="Unfollow a user",
+        operation_description="This api let a user unfollow a following user",
         responses={
             "200": "You have unfollowed this user",
             "400": "You are not following this user"
@@ -86,26 +78,19 @@ class UserFollowingView(ViewSet):
             profile = get_object_or_404(Profile, user=follower)
 
             if not profile.following.filter(pk=follower.id).exists():
-                api_response = {}
-                api_response["status"] = "failed"
-                api_response["message"] = "You are not following this user"
-                
-                return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
+                api_response = {"status": "failed", "message": "You are not following this user"}
 
+                return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
 
             profile.following.remove(pk)       # it takes both ids(*ids) and objects(*users)
             
-            api_response = {}
-            api_response["status"] = "successful"
-            api_response["message"] = "you have unfollowed this user"
-            api_response["following"] = FollowingSerializer(profile).data
+            api_response = {"status": "successful", "message": "you have unfollowed this user",
+                            "following": FollowingSerializer(profile).data}
 
             return Response(api_response, status=status.HTTP_200_OK)
         
         except Exception as e:
-            api_response = {}
-            api_response["status"] = "failed"
-            api_response["message"] = str(e)
-            
+            api_response = {"status": "failed", "message": str(e)}
+
             return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
         
