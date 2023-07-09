@@ -1,6 +1,7 @@
 import jwt 
 from django.conf import settings
 
+
 def decode_uuid_from_jwt(token: str) -> str:
     uuid = token.split("Token ")[1]
     decoded_data = jwt.decode(

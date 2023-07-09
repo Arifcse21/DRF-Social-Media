@@ -15,7 +15,8 @@ class RegisterUserView(ViewSet):
         operation_description="This api registers new user and return access jw token"
     )
     def create(self, request):
-        user_uuid  = str(uuid.uuid4())
+        user_uuid = str(uuid.uuid4())
+        print(f"uuid: {user_uuid}")
         user_data = {
             "first_name": request.data["first_name"],
             "last_name": request.data["last_name"],
@@ -23,14 +24,13 @@ class RegisterUserView(ViewSet):
             "username": request.data["username"],
             "password": request.data["password"],
             "confirm_password": request.data["confirm_password"],
-            "uuid": user_uuid,
 
         }
 
         serializer = UserSerializer(data=user_data)
 
-        access_token = GenerateJWTokensUtil.access_token_generator(user_uuid)
-        refresh_token = GenerateJWTokensUtil.refresh_token_generator(user_uuid)
+        # access_token = GenerateJWTokensUtil.access_token_generator(user_uuid)
+        # refresh_token = GenerateJWTokensUtil.refresh_token_generator(user_uuid)
 
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -39,7 +39,7 @@ class RegisterUserView(ViewSet):
             "status": "successful",
             "message": "New user registered",
             "user": serializer.data,
-            "access_token": str(access_token),
+            # "access_token": str(access_token),
         }
 
         return Response(api_response, status=status.HTTP_201_CREATED)

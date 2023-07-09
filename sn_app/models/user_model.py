@@ -6,9 +6,7 @@ from uuid import uuid4
 
 
 class User(AbstractUser):
-    uuid = models.CharField(max_length=40, null=True, blank=True, editable=False)
-    
-    
+    uuid = models.CharField(max_length=40, editable=False, default=uuid4())
 
     def __repr__(self) -> str:
         return f"{self.username!r}"     # !r is for raw string

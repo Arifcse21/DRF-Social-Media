@@ -1,7 +1,7 @@
 import pytest 
 import unittest
 from faker import Faker
-from sn_app.models import Post
+# from sn_app.models import Post
 
 
 pytestmark = pytest.mark.django_db

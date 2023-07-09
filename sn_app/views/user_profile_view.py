@@ -22,12 +22,14 @@ class UserProfileView(ViewSet):
 
 		try:
 			user = get_object_or_404(User, uuid=uuid)
+			print(f"Here: {user}")
 			profile = get_object_or_404(Profile, user=user)
-
+			print(f"HereP: {profile}")
 			first_name = str(user.first_name) or None
 			last_name = str(user.last_name) or None
 
 			profile_data = ProfileSerializer(profile).data
+			print(f"profile_data: type({profile_data})")
 			profile_data["first_name"] = first_name
 			profile_data["last_name"] = last_name
 			

@@ -42,13 +42,14 @@ class SafeJWTAuthentication(BaseAuthentication):
             e = "I did not get you as a human"
             raise e
 
-        user = get_user_model().objects.filter(uuid=payload['uuid']).first()
+        user = get_user_model().objects.filter(uuid=payload['user_uuid']).first()
+        print(f"user in suth: {user}")
         if user is None:
             raise exceptions.AuthenticationFailed('User not found')
         if not user.is_active:
             raise exceptions.AuthenticationFailed('user is inactive')
 
-        self.enforce_csrf(request)
+        # self.enforce_csrf(request)
         return user, None
 
     def enforce_csrf(self, request):

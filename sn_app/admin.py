@@ -8,6 +8,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "username",
+        "uuid",
         "is_active",
         "is_staff",
         "is_superuser"
