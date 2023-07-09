@@ -137,5 +137,14 @@ REST_FRAMEWORK = {
 SWAGGER_SETTINGS = {
     'JSON_EDITOR': True,
     'SHOW_REQUEST_HEADERS': True,
-
+    'SECURITY_DEFINITIONS': {
+      'Basic': {
+            'type': 'basic'
+      },
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+    }
 }
