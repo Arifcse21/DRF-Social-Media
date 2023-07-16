@@ -28,7 +28,7 @@ class UserFollowingView(ViewSet):
         uuid = decode_uuid_from_jwt(request.headers["Authorization"])
         
         try:
-            user = self.get_object()
+            user = self.queryset
             follower = request.user
 
             if user == follower:
@@ -73,7 +73,7 @@ class UserFollowingView(ViewSet):
         uuid = decode_uuid_from_jwt(request.headers["Authorization"])
         
         try:
-            user = self.get_object()
+            user = self.queryset
             follower = request.user
             profile = get_object_or_404(Profile, user=follower)
 
