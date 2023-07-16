@@ -4,4 +4,6 @@ from .user_profile_view import UserProfileView
 from .profile_update_view import UpdateProfileView
 from .user_following_view import UserFollowingView
 from .create_post_view import CreatePostView
+from .update_post_view import UpdatePostView
+from .single_post_view import SinglePostView
 

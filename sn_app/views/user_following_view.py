@@ -14,7 +14,6 @@ class UserFollowingView(ViewSet):
     authentication_classes = [SafeJWTAuthentication, ]
     queryset = User.objects.all()
     
-    # @action(detail=True, method="post")
     # @JWTRequired
     @swagger_auto_schema(
         operation_summary="Follow a user",
@@ -32,12 +31,9 @@ class UserFollowingView(ViewSet):
             follower = request.user
 
             if user == follower:
-                api_response = {}
-                api_response["status"] = "error"
-                api_response["message"] = "you cant follow yourself!"
+                api_response = {"status": "error", "message": "you cant follow yourself!"}
                 return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
-            
-            
+
             profile = get_object_or_404(Profile, user=follower)
             followings_ids = profile.following.values_list("id", flat=True)
             # to_follow = get_object_or_404(User, pk=pk)
@@ -50,7 +46,7 @@ class UserFollowingView(ViewSet):
             profile.following.add(pk)       # it takes both ids(*ids) and objects(*users)
             
             api_response = {"status": "successful", "message": "you start following this user now",
-                            "following": FollowingSerializer(profile).data}
+                            "data": FollowingSerializer(profile).data}
 
             return Response(api_response, status=status.HTTP_200_OK)
 
@@ -59,7 +55,6 @@ class UserFollowingView(ViewSet):
 
             return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
 
-    # @action(detail=True, method="post")
     # @JWTRequired
     @swagger_auto_schema(
         operation_summary="Unfollow a user",
@@ -85,7 +80,7 @@ class UserFollowingView(ViewSet):
             profile.following.remove(pk)       # it takes both ids(*ids) and objects(*users)
             
             api_response = {"status": "successful", "message": "you have unfollowed this user",
-                            "following": FollowingSerializer(profile).data}
+                            "data": FollowingSerializer(profile).data}
 
             return Response(api_response, status=status.HTTP_200_OK)
         

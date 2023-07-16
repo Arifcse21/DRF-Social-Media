@@ -6,7 +6,10 @@ from sn_app.views import (
     LoginView,
     UpdateProfileView,
     UserProfileView,
-    UserFollowingView
+    UserFollowingView,
+    CreatePostView,
+    UpdatePostView,
+    SinglePostView,
 )
 router = DefaultRouter()
 
@@ -14,6 +17,10 @@ router.register('register', RegisterUserView, basename="register-user")
 router.register('login', LoginView, basename='login-user')
 router.register('profile', UserProfileView, basename='user-profile')
 router.register('profile/update', UpdateProfileView, basename='update-profile')
+router.register('post/create', CreatePostView, basename='create-post')
+router.register('post/<slug:slug>', SinglePostView, basename='single-post')
+router.register('post/<slug:slug>/update', UpdatePostView, basename='update-post')
+
 
 custom_router = CustomRouter()
 

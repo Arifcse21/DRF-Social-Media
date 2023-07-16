@@ -27,12 +27,11 @@ class CreatePostView(ViewSet):
 
         post_data = request.data
 
-
         try:
             payload = {
-            "user": get_object_or_404(User, uuid=uuid),
-            "title": post_data["title"],
-            "content": post_data["content"],
+                "user": get_object_or_404(User, uuid=uuid),
+                "title": post_data["title"],
+                "content": post_data["content"],
             }
 
             serializer = PostSerializer(data=payload)
@@ -51,6 +50,3 @@ class CreatePostView(ViewSet):
                 "message": str(e)
             }
             return Response(api_response, status=status.HTTP_400_BAD_REQUEST)
-        
-
-
