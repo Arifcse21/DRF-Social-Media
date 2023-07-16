@@ -30,14 +30,18 @@ def demo_user():
 
     return user
 
+
 @pytest.fixture
 def demo_post(demo_user):
     faker = Faker()
 
     post = Post(
         user=demo_user,
+        title="A good title attracts the readers",
+        slug="a-good-title-attracts-the-readers",
+        is_archieved=False,
         content=faker.text(),
-        upvote=10,
+        upvote=9,
         downvote=3,
 
     )
